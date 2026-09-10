@@ -1,6 +1,5 @@
-package org.monexa.ipl_stats.Models;
+package org.monexa.ipl_stats.entity;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,13 +13,18 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Data
 @Entity(name = "teams")
-public class Team {
+public class Teams {
 
     @Id
     @Column(name = "team_id")
-    private int teamId;
+    private Integer teamId;
+
     @Column(name = "team_name")
     private String teamName;
+
     @Column(name = "short_name")
     private String shortName;
+
+    @Column(name = "tournament_id")
+    private Integer tournamentId;
 }
