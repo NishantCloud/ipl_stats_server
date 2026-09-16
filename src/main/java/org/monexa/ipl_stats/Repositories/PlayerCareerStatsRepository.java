@@ -19,6 +19,7 @@ public interface PlayerCareerStatsRepository extends JpaRepository<PlayerCareerS
     @Query("""
         SELECT new org.monexa.ipl_stats.dto.PlayerSeasonStatsOverviewDto(
             cs.id.personId,
+            pp.teams.teamId,
             pp.displayName,
             -1,
             'ALL',
@@ -34,6 +35,7 @@ public interface PlayerCareerStatsRepository extends JpaRepository<PlayerCareerS
     @Query("""
         SELECT new org.monexa.ipl_stats.dto.PlayerSeasonStatsOverviewDto(
             cs.id.personId,
+            pp.teams.teamId,
             pp.displayName,
             -1,
             'ALL',
@@ -49,6 +51,7 @@ public interface PlayerCareerStatsRepository extends JpaRepository<PlayerCareerS
     @Query("""
         SELECT new org.monexa.ipl_stats.dto.PlayerSeasonStatsOverviewDto(
             cs.id.personId,
+            pp.teams.teamId,
             pp.displayName,
             -1,
             'ALL',
@@ -64,6 +67,7 @@ public interface PlayerCareerStatsRepository extends JpaRepository<PlayerCareerS
     @Query("""
         SELECT new org.monexa.ipl_stats.dto.PlayerSeasonStatsOverviewDto(
             cs.id.personId,
+            pp.teams.teamId,
             pp.displayName,
             -1,
             'ALL',
@@ -79,6 +83,7 @@ public interface PlayerCareerStatsRepository extends JpaRepository<PlayerCareerS
     @Query("""
         SELECT new org.monexa.ipl_stats.dto.PlayerSeasonStatsOverviewDto(
             cs.id.personId,
+            pp.teams.teamId,
             pp.displayName,
             -1,
             'ALL',
@@ -94,6 +99,7 @@ public interface PlayerCareerStatsRepository extends JpaRepository<PlayerCareerS
     @Query("""
         SELECT new org.monexa.ipl_stats.dto.PlayerSeasonStatsOverviewDto(
             cs.id.personId,
+            pp.teams.teamId,
             pp.displayName,
             -1,
             'ALL',
@@ -109,6 +115,7 @@ public interface PlayerCareerStatsRepository extends JpaRepository<PlayerCareerS
     @Query("""
         SELECT new org.monexa.ipl_stats.dto.PlayerSeasonStatsOverviewDto(
             cs.id.personId,
+            pp.teams.teamId,
             pp.displayName,
             -1,
             'ALL',
@@ -123,6 +130,7 @@ public interface PlayerCareerStatsRepository extends JpaRepository<PlayerCareerS
     @Query("""
         SELECT new org.monexa.ipl_stats.dto.PlayerSeasonStatsOverviewDto(
             cs.id.personId,
+            pp.teams.teamId,
             pp.displayName,
             -1,
             'ALL',

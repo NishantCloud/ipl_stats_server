@@ -43,7 +43,7 @@ public class PlayerProfiles {
 
     @ManyToOne
     @JoinColumn(name = "current_team_id")
-    private Teams team;
+    private Teams teams;
 
 
     @Column(name = "batting_style_short")

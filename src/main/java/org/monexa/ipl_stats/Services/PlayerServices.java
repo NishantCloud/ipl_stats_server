@@ -36,7 +36,7 @@ public class PlayerServices {
             if(playerCareerStats==null) {
                 continue;
             }
-            list.add(new PlayerItemDto(p.getPersonId(),p.getName(),p.getFullName(),p.getImageUrl(),p.getCountryCode(),p.getCountryName(),p.getTeam().getTeamName(),p.getTeam().getShortName(),p.getTeam().getTeamId(),p.getPlayingRole(),
+            list.add(new PlayerItemDto(p.getPersonId(),p.getName(),p.getFullName(),p.getImageUrl(),p.getCountryCode(),p.getCountryName(),p.getTeams().getTeamName(),p.getTeams().getShortName(),p.getTeams().getTeamId(),p.getPlayingRole(),
                         isBowler,50, playerCareerStats.getRunsScored(), playerCareerStats.getWicketsTaken()));
         }
         list.sort(Comparator.comparingInt(PlayerItemDto::runsScored).reversed());
@@ -79,11 +79,11 @@ public class PlayerServices {
         boolean isBowler = p.getPlayingRoleCode().equals("BL");
         int formScore = 50;
         String formLabel= "GOOD";
-        String playerImageUrl = "api/player/"+ p.getPersonId()+"/"+ p.getTeam().getTeamId()+"/image";
+        String playerImageUrl = "api/player/"+ p.getPersonId()+"/"+ p.getTeams().getTeamId()+"/image";
 
         PlayerProfileDto playerProfileDto =  new PlayerProfileDto(
-                p.getPersonId(), p.getName(), p.getFullName(), p.getCountryName(),playerImageUrl, p.getCountryCode(), p.getTeam().getTeamId(),isBowler, formScore,formLabel
-                , p.getPlayingRole(), p.getPlayingRoleCode(), p.getTeam().getTeamName(), p.getTeam().getShortName(), p.getBattingStyleShort(), p.getBowlingStyle(),p.getBowlingStyleShort()
+                p.getPersonId(), p.getName(), p.getFullName(), p.getCountryName(),playerImageUrl, p.getCountryCode(), p.getTeams().getTeamId(),isBowler, formScore,formLabel
+                , p.getPlayingRole(), p.getPlayingRoleCode(), p.getTeams().getTeamName(), p.getTeams().getShortName(), p.getBattingStyleShort(), p.getBowlingStyle(),p.getBowlingStyleShort()
         );
         return playerProfileDto;
     }

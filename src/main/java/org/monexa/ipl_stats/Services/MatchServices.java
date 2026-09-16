@@ -1,76 +1,65 @@
 package org.monexa.ipl_stats.Services;
 
-import org.monexa.ipl_stats.Models.Match;
-import org.monexa.ipl_stats.Models.MatchItem;
+import org.monexa.ipl_stats.Repositories.DeliveriesRepository;
+import org.monexa.ipl_stats.Repositories.InningsRepository;
 import org.monexa.ipl_stats.Repositories.MatchRepository;
+import org.monexa.ipl_stats.dto.DeliveriesDto;
+import org.monexa.ipl_stats.dto.DeliveriesResponse;
+import org.monexa.ipl_stats.dto.InningsDto;
+import org.monexa.ipl_stats.dto.WicketDto;
+import org.monexa.ipl_stats.entity.Deliveries;
+import org.monexa.ipl_stats.entity.DeliveryWickets;
+import org.monexa.ipl_stats.entity.DeliveryWicketsFielders;
+import org.monexa.ipl_stats.entity.Innings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 @Service
 public class MatchServices {
-
     @Autowired
     MatchRepository matchRepo;
 
-     public List<MatchItem> getMatchesList(){
-         List<MatchItem> list = new ArrayList<>();
-        for(Match match: matchRepo.findAllByOrderByMatchDateDesc()){
-            if (match!=null)
-            {
-                String team1 = match.getTeam1() != null
-                        ? match.getTeam1().getTeamName()
-                        : "Unknown";
+    @Autowired
+    InningsRepository inningsRepository;
+    @Autowired
+    DeliveriesRepository deliveriesRepository;
 
-                String team2 = match.getTeam2() != null
-                        ? match.getTeam2().getTeamName()
-                        : "Unknown";
 
-                String winner = match.getWinnerTeam() != null
-                        ? match.getWinnerTeam().getTeamName()
-                        : "Not Known";
+    public DeliveriesResponse getDeliveriesOfMatch(int matchId) {
 
-                list.add(new MatchItem(
-                        team1,
-                        team2,
-                        winner,
-                        match.getMatchDate(),
-                        match.getMatchStage()
-                ));
-            }
+        List<DeliveriesDto> deliveriesDtoList = new ArrayList<>();
+        List<InningsDto> inningsDtoList = new ArrayList<>();
+        for(Innings innings: inningsRepository.findAllInningsByMatchIdOrderByInningsIdAsc(matchId)){
+            inningsDtoList.add(
+              new InningsDto(
+                      innings.getInningsId(), innings.getInningsNumber(), innings.getMatchId(), innings.getBattingTeamId(), innings.isSuperOver(),
+                      innings.getTargetRuns(), innings.getTargetOvers()
+              )
+            );
         }
-        return list;
-    }
+        for (Deliveries deliveries: deliveriesRepository.findAllDeliveriesByMatchId(matchId)) {
 
-    public List<MatchItem> getMatchesListOfSeason(Long seasonId) {
-        List<MatchItem> list = new ArrayList<>();
-        for(Match match: matchRepo.findBySeasonIdOrderByMatchDateDesc(seasonId)){
-            if (match!=null)
-            {
-                String team1 = match.getTeam1() != null
-                        ? match.getTeam1().getTeamName()
-                        : "Unknown";
+            WicketDto wicketDto = null;
+            if(deliveries.isWicket()){
+                DeliveryWickets deliveryWickets = deliveries.getWickets().stream().findFirst().get();
+                Integer fielderId =   !deliveryWickets.getFielders().isEmpty()? deliveryWickets.getFielders().stream().findFirst().get().getPersonId(): null;
 
-                String team2 = match.getTeam2() != null
-                        ? match.getTeam2().getTeamName()
-                        : "Unknown";
-
-                String winner = match.getWinnerTeam() != null
-                        ? match.getWinnerTeam().getTeamName()
-                        : "Not Known";
-
-                list.add(new MatchItem(
-                        team1,
-                        team2,
-                        winner,
-                        match.getMatchDate(),
-                        match.getMatchStage()
-                ));
+                wicketDto = new WicketDto(deliveryWickets.getWicketId(), deliveryWickets.getPlayerOutId(), fielderId, deliveryWickets.getDismissalKind());
             }
+            deliveriesDtoList.add(new DeliveriesDto(
+                    deliveries.getInningsId(), deliveries.getOverNumber(), deliveries.getBallSequence(), deliveries.getLegalBallNumber(),deliveries.getBatterId(),
+                    deliveries.getBowlerId(), deliveries.getNonStrikerId(),deliveries.getRunsBatter(), deliveries.getRunsExtras(),deliveries.getRunsTotal(),deliveries.getExtraType(),
+                    deliveries.isWicket(), wicketDto
+            ));
         }
-        return list;
+
+
+        return new DeliveriesResponse(
+                inningsDtoList,
+                deliveriesDtoList
+        ) ;
     }
 }
