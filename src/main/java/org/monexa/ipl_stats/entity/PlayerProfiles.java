@@ -26,6 +26,9 @@ public class PlayerProfiles {
     @Column(name = "display_name")
     private String displayName;
 
+    @Column(name = "batting_name")
+    private String battingName;
+
     @Column(name = "country_name")
     private String countryName;
 

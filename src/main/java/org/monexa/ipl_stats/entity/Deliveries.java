@@ -30,14 +30,17 @@ public class Deliveries {
     @Column(name = "legal_ball_number")
     Integer legalBallNumber;
 
-    @Column(name = "batter_id")
-    Integer batterId;
+    @ManyToOne
+    @JoinColumn(name = "batter_id")
+    Person batter;
 
-    @Column(name = "bowler_id")
-    Integer bowlerId;
+    @ManyToOne
+    @JoinColumn(name = "bowler_id")
+    Person bowler;
 
-    @Column(name = "non_striker_id")
-    Integer nonStrikerId;
+    @ManyToOne
+    @JoinColumn(name = "non_striker_id")
+    Person nonStriker;
 
     @Column(name = "runs_batter")
     Integer runsBatter;

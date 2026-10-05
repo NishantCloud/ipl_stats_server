@@ -13,8 +13,9 @@ public class DeliveryWicketsFielders {
 
 
 
-    @Column(name = "person_id")
-    private Integer personId;
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person person;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)

@@ -18,8 +18,9 @@ public class DeliveryWickets {
     @Column(name = "wicket_id")
     private Integer wicketId;
 
-    @Column(name = "player_out_id")
-    private Integer playerOutId;
+    @ManyToOne
+    @JoinColumn(name = "player_out_id")
+    private Person playerOut;
 
     @Column(name = "dismissal_kind")
     private String dismissalKind;

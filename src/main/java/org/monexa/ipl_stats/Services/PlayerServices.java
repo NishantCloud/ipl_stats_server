@@ -87,4 +87,9 @@ public class PlayerServices {
         );
         return playerProfileDto;
     }
+
+    public PlayerItemResponse getPlayerItem(int personId) {
+
+        return null;
+    }
 }
